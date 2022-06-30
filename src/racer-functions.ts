@@ -14,9 +14,14 @@ export function findRacersWithEmptyFuel(racers: Racer[]): Racer[] {
 
 export function findAverageSpeed(racers: Racer[]): number {
     let speed = 0;
-    racers.forEach(car => {
-        speed += car.speed;
-    });
 
-    return speed/racers.length;
+    if (racers.length === 0) {
+        return 0;
+    } else {
+        racers.forEach(car => {
+            speed += car.speed;
+        });
+    
+        return speed/racers.length;
+    }    
 };
