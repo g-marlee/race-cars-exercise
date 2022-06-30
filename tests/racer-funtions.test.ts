@@ -80,5 +80,5 @@ describe("findRacersWithEmptyFuel", () => {
         let emptyCars = findRacersWithEmptyFuel(racerArray);
 
         expect(emptyCars).toEqual([]);
-    })
+    });
 });
