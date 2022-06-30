@@ -25,3 +25,13 @@ export function findAverageSpeed(racers: Racer[]): number {
         return speed/racers.length;
     }    
 };
+
+export function getFasterRacer(racerA: Racer, racerB: Racer): Racer|null {
+    if (racerA.speed > racerB.speed) {
+        return racerA;
+    } else if (racerB.speed > racerA.speed) {
+        return racerB;
+    } else {
+        return null;
+    }
+}
