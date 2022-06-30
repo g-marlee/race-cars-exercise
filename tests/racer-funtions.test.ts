@@ -1,7 +1,7 @@
 import { GasCar } from "../src/gas-car"
 import { Racer } from "../src/racer"
 import { SolarCar } from "../src/solar-car"
-import { findAverageSpeed, findRacersWithEmptyFuel } from "../src/racer-functions";
+import { findAverageSpeed, findRacersWithEmptyFuel, getFasterRacer } from "../src/racer-functions";
 
 describe("findRacersWithEmptyFuel", () => {
     test("Array of GasCar where some have no fuel", () => {
@@ -160,5 +160,71 @@ describe("findAverageSpeed", () => {
         let averageSpeed = findAverageSpeed(racerArray);
 
         expect(averageSpeed).toBe(0);
+    });
+});
+
+describe("getFasterRacer", () => {
+    test("racerA is faster", () => {
+        let racerA: GasCar = new GasCar("Gas cars", 50);
+        let racerB: SolarCar = new SolarCar("Solar cars");
+
+        racerA.accelerate();
+        racerA.accelerate();
+
+        racerB.accelerate();
+
+        let fasterCar = getFasterRacer(racerA, racerB);
+
+        expect(fasterCar).toBe(racerA);
+    });
+
+    test("racerB is faster", () => {
+        let racerA: GasCar = new GasCar("Gas cars", 50);
+        let racerB: SolarCar = new SolarCar("Solar cars");
+
+        racerA.accelerate();
+
+        racerB.accelerate();
+        racerB.accelerate();
+        racerB.accelerate();
+        racerB.accelerate();
+
+        let fasterCar = getFasterRacer(racerA, racerB);
+
+        expect(fasterCar).toBe(racerB);
+    });
+
+    test("Both racers are the same speed", () => {
+        let racerA: GasCar = new GasCar("Gas cars", 50);
+        let racerB: SolarCar = new SolarCar("Solar cars");
+
+        racerA.accelerate();
+        racerA.accelerate();
+
+        racerB.accelerate();
+        racerB.accelerate();
+        racerB.accelerate();
+        racerB.accelerate();
+
+        let fasterCar = getFasterRacer(racerA, racerB);
+
+        expect(fasterCar).toBe(null);
+    });
+
+    test("Both racers are the same type of car", () => {
+        let racerA: GasCar = new GasCar("Gas cars", 50);
+        let racerB: GasCar = new GasCar("Gas cars", 80);
+
+        racerA.accelerate();
+        racerA.accelerate();
+
+        racerB.accelerate();
+        racerB.accelerate();
+        racerB.accelerate();
+        racerB.accelerate();
+
+        let fasterCar = getFasterRacer(racerA, racerB);
+
+        expect(fasterCar).toBe(racerB);
     });
 });
